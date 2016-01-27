@@ -1,4 +1,4 @@
-var VideoList = () => (
+const VideoList = () => (
   <div className="video-list media">
     <VideoListEntry />
     <VideoListEntry />

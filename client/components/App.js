@@ -1,4 +1,4 @@
-var App = () => (
+const App = () => (
   <div>
     <Nav />
     <div className="col-md-7">
@@ -9,3 +9,5 @@ var App = () => (
     </div>
   </div>
 );
+
+ReactDOM.render(<App />, document.getElementById('app'))

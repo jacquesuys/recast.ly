@@ -41,19 +41,13 @@ class App extends React.Component {
       this.setState({
         currentVideo: data.items[0],
         allVideos: data.items,
-      })
+      });
     });
   }
 
   onVideoSelect(videoClicked) {
     this.setState({
       currentVideo: videoClicked,
-    });
-
-    searchYouTube(this.defaultOptions, (data) => {
-      this.setState({
-        allVideos: data.items,
-      })
     });
   }
 

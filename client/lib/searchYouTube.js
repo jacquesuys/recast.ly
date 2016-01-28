@@ -1,10 +1,12 @@
 var searchYouTube = (options, callback) => {
-  // TODO
+  var extendedOptions = _.extend(options,
+                        {type:'video',
+                        part: 'snippet',
+                        videoEmbeddable: true})
   $.ajax({
     url: 'https://www.googleapis.com/youtube/v3/search',
     method:'GET',
-    data: options,
-    type: 'video',
+    data: extendedOptions,
     success: function(data) {
       console.log(data);
       callback(data);

@@ -9,6 +9,7 @@ var searchYouTube = (options, callback) => {
     data: extendedOptions,
     success: function(data) {
       callback(data);
+      console.log(data);
     },
     error: function(data) {
       console.log(data);

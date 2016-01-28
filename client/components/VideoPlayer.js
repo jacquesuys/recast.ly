@@ -2,6 +2,7 @@ const VideoPlayer = (props) => {
     let url;
     let title;
     let description;
+    
     if (props.video) {
       url = `https://www.youtube.com/embed/${props.video.id.videoId}?autoplay=1`;
       title = props.video.snippet.title;

@@ -3,9 +3,23 @@ class App extends React.Component {
     super(props);
     this.state = {
       currentVideo: undefined,
-      allVideos: []
+      allVideos: [],
+      searchText: ""
     };
     this.onVideoSelect = this.onVideoSelect.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  
+  // componentDidMount() {
+  //   this.setState({
+  //     likesIncreasing: nextProps.likeCount > this.props.likeCount
+  //   });
+  // }
+
+  handleChange(value) {
+    this.setState({
+      searchText: value
+    });
   }
 
   onVideoSelect(videoClicked) {
@@ -18,7 +32,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
+        <Nav handleChange={this.handleChange} q={this.state.searchText}/>
         <div className="col-md-7">
           <VideoPlayer video={this.state.currentVideo} />
         </div>

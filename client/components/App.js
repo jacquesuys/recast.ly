@@ -2,8 +2,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: exampleVideoData[0],
-      allVideos: exampleVideoData
+      currentVideo: undefined,
+      allVideos: []
     };
     this.onVideoSelect = this.onVideoSelect.bind(this);
   }

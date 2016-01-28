@@ -10,16 +10,17 @@ class App extends React.Component {
 
     this.onVideoSelect = this.onVideoSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.debouncedSearchYouTube = _.debounce(searchYouTube, 400);
   }
 
   componentDidMount() {
-    const deflt = {
+    const defaultOptions = {
       q: '',
       maxResults: 6,
       key: YOUTUBE_API_KEY
     };
 
-    searchYouTube(deflt, (data) => {
+    searchYouTube(defaultOptions, (data) => {
       this.setState({
         currentVideo: data.items[0],
         allVideos: data.items,
@@ -28,10 +29,22 @@ class App extends React.Component {
     });
   }
 
-
   handleChange(value) {
+    const options = {
+      q: value,
+      maxResults: 5,
+      key: YOUTUBE_API_KEY
+    };
+
     this.setState({
-      searchText: value
+      searchText: value,
+    });
+
+    this.debouncedSearchYouTube(options, (data) => {
+      this.setState({
+        currentVideo: data.items[0],
+        allVideos: data.items,
+      })
     });
   }
 

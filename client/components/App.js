@@ -2,14 +2,16 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentVideo: exampleVideoData[0]
+      currentVideo: exampleVideoData[0],
+      allVideos: exampleVideoData
     };
     this.onVideoSelect = this.onVideoSelect.bind(this);
   }
 
   onVideoSelect(videoClicked) {
     this.setState({
-      currentVideo: videoClicked
+      currentVideo: videoClicked,
+      allVideos: exampleVideoData
     });
   }
 
@@ -21,7 +23,7 @@ class App extends React.Component {
           <VideoPlayer video={this.state.currentVideo} />
         </div>
         <div className="col-md-5">
-          <VideoList onVideoSelect={this.onVideoSelect} videos={exampleVideoData} />
+          <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.allVideos} />
         </div>
       </div>
     );

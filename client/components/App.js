@@ -1,20 +1,33 @@
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       currentVideo: undefined,
       allVideos: [],
-      searchText: ""
+      searchText: '',
     };
+
     this.onVideoSelect = this.onVideoSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  
-  // componentDidMount() {
-  //   this.setState({
-  //     likesIncreasing: nextProps.likeCount > this.props.likeCount
-  //   });
-  // }
+
+  componentDidMount() {
+    const deflt = {
+      q: '',
+      maxResults: 6,
+      key: YOUTUBE_API_KEY
+    };
+
+    searchYouTube(deflt, (data) => {
+      this.setState({
+        currentVideo: data.items[0],
+        allVideos: data.items,
+        searchText: '',
+      })
+    });
+  }
+
 
   handleChange(value) {
     this.setState({

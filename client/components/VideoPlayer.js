@@ -18,7 +18,7 @@ const VideoPlayer = (props) => {
           <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
         </div>
         <div className="video-player-details">
-          <VideoDetails title={title} description={description} />
+          <VideoDetails title={title} description={description} stats={props.stats} />
         </div>
       </div>
     );

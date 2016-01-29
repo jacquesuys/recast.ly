@@ -6,6 +6,7 @@ class App extends React.Component {
       currentVideo: undefined,
       allVideos: [],
       searchText: '',
+      currentStatistics: [],
     };
 
     this.defaultOptions = {
@@ -14,6 +15,7 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY
     };
 
+    this.updateVideoDetails = this.updateVideoDetails.bind(this);
     this.onVideoSelect = this.onVideoSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.debouncedSearchYouTube = _.debounce(searchYouTube, 400);
@@ -26,7 +28,17 @@ class App extends React.Component {
         currentVideo: data.items[0],
         allVideos: data.items,
         searchText: '',
-      })
+      });
+
+      this.updateVideoDetails();
+    });
+  }
+
+  updateVideoDetails() {
+    getVideoDetails(this.state.currentVideo.id.videoId, (data) => {
+      this.setState({
+        currentStatistics: data.items[0].statistics,
+      });
     });
   }
 
@@ -42,6 +54,8 @@ class App extends React.Component {
         currentVideo: data.items[0],
         allVideos: data.items,
       });
+
+      this.updateVideoDetails();
     });
   }
 
@@ -49,6 +63,8 @@ class App extends React.Component {
     this.setState({
       currentVideo: videoClicked,
     });
+
+    this.updateVideoDetails();
   }
 
   render() {
@@ -56,7 +72,7 @@ class App extends React.Component {
       <div>
         <Nav handleChange={this.handleChange} q={this.state.searchText}/>
         <div className="col-md-7">
-          <VideoPlayer video={this.state.currentVideo} />
+          <VideoPlayer video={this.state.currentVideo} stats={this.state.currentStatistics} />
         </div>
         <div className="col-md-5">
           <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.allVideos} />

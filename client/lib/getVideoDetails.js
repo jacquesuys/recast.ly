@@ -8,7 +8,6 @@ const getVideoDetails = (id, callback) => {
     data: options,
     success: function(data) {
       callback(data);
-      console.log(data);
     },
     error: function(data) {
       console.log(data);

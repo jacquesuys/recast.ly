@@ -7,6 +7,7 @@ class App extends React.Component {
       allVideos: [],
       searchText: '',
       currentStatistics: [],
+      autoPlay: true,
     };
 
     this.defaultOptions = {
@@ -15,6 +16,7 @@ class App extends React.Component {
       key: YOUTUBE_API_KEY
     };
 
+    this.handleChecked = this.handleChecked.bind(this);
     this.updateVideoDetails = this.updateVideoDetails.bind(this);
     this.onVideoSelect = this.onVideoSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -47,6 +49,7 @@ class App extends React.Component {
 
     this.setState({
       searchText: value,
+      autoPlay: checked
     });
 
     this.debouncedSearchYouTube(this.defaultOptions, (data) => {
@@ -56,6 +59,13 @@ class App extends React.Component {
       });
 
       this.updateVideoDetails();
+    });
+  }
+
+  handleChecked(checked) {
+
+    this.setState({
+      autoPlay: checked
     });
   }
 
@@ -72,10 +82,10 @@ class App extends React.Component {
       <div>
         <Nav handleChange={this.handleChange} q={this.state.searchText}/>
         <div className="col-md-7">
-          <VideoPlayer video={this.state.currentVideo} stats={this.state.currentStatistics} />
+          <VideoPlayer video={this.state.currentVideo} stats={this.state.currentStatistics} auto={this.state.autoPlay} />
         </div>
         <div className="col-md-5">
-          <VideoList onVideoSelect={this.onVideoSelect} videos={this.state.allVideos} />
+          <VideoList onVideoSelect={this.onVideoSelect} handleChecked={this.handleChecked} videos={this.state.allVideos} auto={this.state.autoPlay} />
         </div>
       </div>
     );

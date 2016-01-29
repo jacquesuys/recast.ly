@@ -1,20 +1,16 @@
-var searchYouTube = (options, callback) => {
-  var extendedOptions = _.extend(options,
-                        {type:'video',
-                        part: 'snippet',
-                        videoEmbeddable: true});
-  $.ajax({
-    url: 'https://www.googleapis.com/youtube/v3/search',
-    method:'GET',
-    data: extendedOptions,
-    success: function(data) {
-      callback(data);
-      console.log(data);
-    },
-    error: function(data) {
-      console.log(data);
-    }
+const searchYouTube = (q, callback) => {
+  const key = YOUTUBE_API_KEY;
+  const URL = `https://www.googleapis.com/youtube/v3/search?q=${q}&part=snippet&type=video&key=${key}`
+
+  fetch(URL).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+      callback(json);
+  }).catch(function(response){
+      console.log(response);
   });
+
 };
+
 
 window.searchYouTube = searchYouTube;

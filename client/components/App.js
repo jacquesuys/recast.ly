@@ -10,12 +10,6 @@ class App extends React.Component {
       autoPlay: true,
     };
 
-    this.defaultOptions = {
-      q: '',
-      maxResults: 6,
-      key: YOUTUBE_API_KEY
-    };
-
     this.handleChecked = this.handleChecked.bind(this);
     this.updateVideoDetails = this.updateVideoDetails.bind(this);
     this.onVideoSelect = this.onVideoSelect.bind(this);
@@ -25,7 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    searchYouTube(this.defaultOptions, (data) => {
+    searchYouTube('', (data) => {
       this.setState({
         currentVideo: data.items[0],
         allVideos: data.items,
@@ -45,14 +39,11 @@ class App extends React.Component {
   }
 
   handleChange(value) {
-    this.defaultOptions.q = value;
-
     this.setState({
       searchText: value,
-      autoPlay: checked
     });
 
-    this.debouncedSearchYouTube(this.defaultOptions, (data) => {
+    this.debouncedSearchYouTube(value, (data) => {
       this.setState({
         currentVideo: data.items[0],
         allVideos: data.items,

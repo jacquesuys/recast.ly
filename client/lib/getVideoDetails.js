@@ -1,18 +1,16 @@
 const getVideoDetails = (id, callback) => {
-  const options = {part: 'statistics',
-                         id: id,
-                         key: YOUTUBE_API_KEY};
-  $.ajax({
-    url: 'https://www.googleapis.com/youtube/v3/videos',
-    method:'GET',
-    data: options,
-    success: function(data) {
-      callback(data);
-    },
-    error: function(data) {
-      console.log(data);
-    }
+  const key = YOUTUBE_API_KEY;
+  const URL = `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${id}&key=${key}`
+
+  fetch(URL).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+      callback(json);
+  }).catch(function(response){
+      console.log(response);
   });
+
 };
+
 
 window.getVideoDetails = getVideoDetails;
